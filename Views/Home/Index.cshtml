@@ -1,0 +1,73 @@
+﻿@model YemekSitesi.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<h2>Günün Menüsü!</h2>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+
+
+        @for (int i = 0; i < Model.Sliders.Count; i++)
+        {
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+        }
+
+
+
+    </div>
+    <div class="carousel-inner">
+        
+
+        @foreach (var item in Model.Sliders)
+        {
+            <div class="carousel-item @(item == Model.Sliders.First() ? "active" : "")">
+                <img src="/img/@item.ImageUrl" class="d-block w-50 mx-auto" alt="@item.Title" style="height: 400px;" />
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>@item.Title</h5>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        }
+       
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="background-color:black">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="background-color:black">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<hr />
+
+
+<h2>Ürünler</h2>
+
+<div class="row">
+    @foreach (var item in Model.Products)
+    {
+        @if(item.IsActive == true && item.IsHome == true)
+        {
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="/img/@item.Img" alt="@item.Name" height="200" />
+
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p><strong>@item.Price ₺</strong></p>
+                    <form asp-controller="Cart" asp-action="SepeteEkle" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-primary btn-lg">Sepete Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        }
+    }
+</div>
+
+

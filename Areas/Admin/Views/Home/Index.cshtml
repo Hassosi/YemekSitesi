@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Admin Panel</h1>
+
+<div class="admin-menu">
+    <ul>
+        <li><a asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
+        <li><a asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
+        <li><a asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a></li>
+    </ul>
+</div>

@@ -1,0 +1,44 @@
+﻿@model List<YemekSitesi.Models.Product>
+
+@{
+    ViewData["Title"] = "Sepetim";
+}
+
+<h2>Sepetim</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>Sepetiniz boş.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ürün Adı</th>
+                <th>Fiyat</th>
+                <th>Resim</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Img))
+                        {
+                            <img src="/img/@item.Img" alt="@item.Name" width="100" />
+                        }
+                    </td>
+                    <td> <a asp-controller="Cart" asp-action="SepettenCikar" asp-route-id="@item.Id" class="btn btn-secondary">Sepetten Kaldır</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div>
+    <a asp-controller="Cart" asp-action="SepetiBosalt" class="btn btn-danger">Sepeti Boşalt</a>
+</div>
+
